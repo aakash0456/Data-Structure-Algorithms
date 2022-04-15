@@ -1,0 +1,95 @@
+/******************************************************************************
+
+                              Online C++ Compiler.
+               Code, Compile, Run and Debug C++ program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <iostream>
+
+using namespace std;
+
+struct Queue
+{
+  int size;
+  int front;
+  int rear;
+  int *Q;
+};
+
+void create (Queue * q, int size)
+{
+  q->size = size;
+  //q->Q = new int[size];
+  q->Q=(int *)malloc(q->size*sizeof(int));
+  q->front = 0;
+  q->rear = 0;
+}
+
+void enqueue (Queue *q, int x)
+{
+  if ((q->rear+1)%q->size == q->front)
+    {
+      cout << "Queue is full";
+    }
+  else
+    {
+      q->rear = (q->rear+1)%q->size;
+      q->Q[q->rear] = x;
+
+    }
+}
+
+
+
+void Display(Queue q)
+{
+  int i=q.front+1;
+
+ do
+ {
+
+ printf("%d ",q.Q[i]);
+ i=(i+1)%q.size;
+ }while(i!=(q.rear+1)%q.size);
+
+ printf("\n");
+}
+
+
+int dequeue (Queue * q)
+{
+  int x = -1;
+  if (q->front == q->rear)
+    {
+      cout << "Queue is empty";
+    }
+  else
+    {
+      q->front = (q->front+1)%q->size;
+      x = q->Q[q->front];
+    }
+  return x;
+}
+
+int main ()
+{
+  struct Queue q;
+
+
+  int size;
+
+  //cout << "Enter the size of Queue: ";
+  //cin >> size;
+  create (&q, 5);
+  enqueue (&q, 2);
+  //enqueue (&q, 3);
+  enqueue (&q,66);
+  Display (q);
+
+  //dequeue(q);
+
+
+  return 0;
+}

@@ -1,0 +1,81 @@
+/******************************************************************************
+
+                              Online C++ Compiler.
+               Code, Compile, Run and Debug C++ program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <iostream>
+
+using namespace std;
+void ReverseCapSml(char B[])
+{
+    for(int i=0; B[i]!='\0'; i++)
+    {
+        if(B[i]>90)
+        {
+            B[i]= B[i]-32;
+        }
+        else if(B[i]<91)
+        {
+            B[i]= B[i]+32;
+        }
+    }
+}
+void FindDuplicate(char A[])
+{
+    int H[26]={0};
+    for(int i=0; A[i]!='\0'; i++)
+    {
+        H[A[i]-97] = H[A[i]-97] +1;
+    }
+    
+    for(int j=0; j<26; j++)
+    {
+        if(H[j]>1)
+        cout<<char(j+97)<<'\t';
+        //cout<<H[j]<<'\t';
+    }
+}
+
+void Reverse(char C[])
+{
+    int i,j=0, k;
+    for( i=0; C[i]!='\0'; i++)
+    {
+       j++;
+    }
+    j--;
+    for(k=0; k<j; k++,j--)
+    {
+        char t = C[k];
+        C[k] = C[j];
+        C[j] = t;
+    }
+}
+
+
+void Capital(char A[])
+{
+    for(int i=0; A[i]!='\0'; i++)
+    {
+      A[i]=A[i]-32;
+    }
+   
+}
+
+int main()
+{
+    char A[]="akash";
+    char B[]="WeLcOme";
+    char C[]="python";
+    char D[]="akash";
+    
+    Capital(A);
+    ReverseCapSml(B);
+    Reverse(C);
+    FindDuplicate(D);
+     //cout<<C;
+    return 0;
+}

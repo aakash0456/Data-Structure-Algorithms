@@ -1,0 +1,105 @@
+/******************************************************************************
+
+                              Online C++ Compiler.
+               Code, Compile, Run and Debug C++ program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <iostream>
+
+struct Node
+{
+    struct Node *lchild;
+    int data;
+    int height;
+    struct Node *rchild;
+}*root=NULL;
+
+int NodeHeight(Node *p)
+{
+    int hl, hr;
+    hl=p && p->lchild?p->lchild->height:0;
+    hl=p && p->rchild?p->rchild->height:0;
+    
+    return hl>hr?hl+1:hr+1;
+}
+
+int BalanceFactor(struct Node *p)
+{
+    int hl, hr;
+    hl=p && p->lchild?p->lchild->height:0;
+    hl=p && p->rchild?p->rchild->height:0;
+    
+    return hl-hr;
+}
+
+struct Node * Insert(int key)
+{
+    struct Node *t=root;
+    struct Node *r, *p;
+    
+    if(root==NULL)
+    {
+        p = new Node;
+        p->data=key;
+        p->height=NULL;
+        p->lchild=t->rchild=NULL;
+        root=p;
+        return;
+    }
+    
+    while(t!=NULL)
+    {
+        r=t;
+        if(key<t->data)
+        {
+            t=t->lchild;
+        }
+        else if(key>t->data)
+        {
+            t=t->rchild;
+        }
+        else
+        return;
+    }
+        p= new Node;
+        p->data = key;
+        p->lchild = NULL;
+        p->rchild = NULL;
+        
+        if(key<r->data)
+        {
+            r->lchild=p;
+        }
+        else
+        r->rchild=p;
+        p->height= NodeHeight(p);
+        
+        if(BalanceFactor(p)==2 && BalanceFactor(p->lchild)==1)
+        {
+            return LLRotation(p);
+        }
+        else if(BalanceFactor(p)==2 && BalanceFactor(p->lchild)==-1)
+        {
+            return LRRotation(p);
+        }
+        else if(BalanceFactor(p)==-2 && BalanceFactor(p->rchild)==-1)
+        {
+            return RRRotation(p);
+        }
+        else if(BalanceFactor(p)==-2 && BalanceFactor(p->rchild)==-1)
+        {
+            return RLRotation(p);
+        }
+        return p;
+}
+
+using namespace std;
+
+int main()
+{
+    cout<<"Hello World";
+
+    return 0;
+}

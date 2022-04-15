@@ -1,0 +1,190 @@
+/******************************************************************************
+
+                              Online C++ Compiler.
+               Code, Compile, Run and Debug C++ program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <iostream>
+
+using namespace std;
+
+struct Node
+{
+    int data;
+    struct Node *next;
+}*first=NULL, *second = NULL, *third=NULL, *MergeL=NULL;
+
+void create(int A[], int n)
+{
+    struct Node  *t, *last;
+    int i;
+    first = new Node;
+    first->data = A[0];
+    first->next=NULL;
+    last=first;
+    for(i=1; i<n; i++)
+    {
+        t = new Node;
+        t->data=A[i];
+        t->next=NULL;
+        last->next=t;
+        last=t;
+    }
+}
+void create_B(int A[], int n)
+{
+    struct Node  *t, *last;
+    int i;
+    second = new Node;
+    second->data = A[0];
+    second->next=NULL;
+    last=second;
+    for(i=1; i<n; i++)
+    {
+        t = new Node;
+        t->data=A[i];
+        t->next=NULL;
+        last->next=t;
+        last=t;
+    }
+}
+void create_C(int A[], int n)
+{
+    struct Node  *t, *last;
+    int i;
+    third = new Node;
+    third->data = A[0];
+    third->next=NULL;
+    last=third;
+    for(i=1; i<n; i++)
+    {
+        t = new Node;
+        t->data=A[i];
+        t->next=NULL;
+        last->next=t;
+        last=t;
+    }
+}
+
+void Display(struct Node *p)
+{
+    while(p!=NULL)
+    {
+        cout<<p->data<<'\t';
+        p=p->next;
+    }
+}
+void Concat(Node *A, Node *B, Node *C)
+{
+    third = A;
+    while(A->next!=NULL)
+    {
+        A=A->next;
+    }
+    A->next=B;
+    
+   while(A->next!=NULL)
+    {
+        A=A->next;
+    }
+    A->next=C;
+    
+}
+
+void Merge(Node *p, Node *q)
+{
+    Node  *last;
+    
+        if(p->data < q->data)
+        {
+            MergeL= last = p;
+            p=p->next;
+            last->next = NULL;
+        }
+        else
+        {
+            MergeL = last = q;
+            q=q->next;
+            last->next = NULL;
+        }
+    while(p && q)
+    {
+        if(p->data < q->data)
+        {
+            last->next = p;
+            last = p;
+           p = p->next;
+           last->next=NULL;
+        }
+        else
+        {
+           last->next = q;
+           last = q;
+           q = q->next;
+           last->next=NULL;
+        }
+    }
+    
+    if(p!=NULL)
+    {
+        last->next = p;
+    }
+    else
+    {
+        last->next = q;
+    }
+}
+
+int isLoop(Node *f)
+{
+    Node *p, *q;
+    p=q=f;
+    
+    do
+    {
+        p=p->next;
+    q=q->next;
+    if(q)
+    {
+        q=q->next;
+        
+    }}while(p && q && p!=q);
+    
+    if(p==q)
+       return 1;
+    else 
+       return 0;
+   
+    
+    
+}
+int main()
+{
+   int A[]={10,20,30,40,50};
+   int B[]={16,21,33,39,44};
+   int C[]={11,12,13,14,15};
+   create(A, 5);
+   create_B(B, 5);
+   create_C(C, 5);
+   
+   struct Node *t1, *t2;
+   
+   t1=first->next->next;
+   t2=first->next->next->next->next;
+   t2->next =  t1;
+    cout<<isLoop(first);
+   //Display(first);
+   //Display(second);
+   //Display(third);
+  // Concat(first, second, third);
+  //Merge(first,second);
+  //Display(MergeL);
+ 
+   //Display(MergeL);
+   
+   
+
+    return 0;
+}

@@ -1,0 +1,146 @@
+/******************************************************************************
+
+                              Online C++ Compiler.
+               Code, Compile, Run and Debug C++ program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <iostream>
+
+using namespace std;
+
+struct Node
+{
+    struct Node *lchild;
+    int data;
+    struct Node *rchild;
+}*root=NULL;
+
+void Insert(int key)
+{
+    struct Node *t = root;
+    struct Node *r, *p;
+    if(root==NULL)
+    {
+        p= new Node;
+        p->data = key;
+        p->lchild = NULL;
+        p->rchild = NULL;
+        root=p;
+        return;
+    }
+    
+    while(t!=NULL)
+    {
+        r=t;
+        if(key<t->data)
+        {
+            t=t->lchild;
+        }
+        else if(key>t->data)
+        {
+            t=t->rchild;
+        }
+        else
+        return;
+    }
+        p= new Node;
+        p->data = key;
+        p->lchild = NULL;
+        p->rchild = NULL;
+        
+        if(key<r->data)
+        {
+            r->lchild=p;
+        }
+        else
+        r->rchild=p;
+}
+
+struct Stack
+{
+    int size;
+    int top;
+    Node **S;
+};
+
+
+void create(Stack *stk, int size)
+{
+    stk->size = size;
+    stk->top=-1;
+    stk->S = (Node **)malloc(stk->size*sizeof(Node *));
+}
+void push(Stack *st, Node *x)
+{
+    if(st->top == st->size-1)
+    {
+        cout<<"stack is full";
+    }
+    else
+    {
+    st->top++;
+    st->S[st->top]=x;
+    }
+}
+
+Node * pop(Stack *st)
+{
+    Node *x=NULL;
+    if(st->top==-1)
+    {
+        cout<<"stack is empty";
+    }
+    
+    else
+    {
+        x=st->S[st->top];
+        st->top--;
+    }
+    return x;
+}
+
+int isEmptyStack(Stack st)
+{
+    if(st.top==-1)
+    {
+        return 1;
+    }
+    return 0;
+}
+
+void Ipreorder(Node *p)
+{
+    struct Stack stk;
+    create(&stk, 100);
+    while(p!=NULL|| !isEmptyStack(stk))
+    {
+        if(p)
+        {
+        cout<<p->data<<'\t';
+        push(&stk, p);
+        p=p->lchild;
+        }
+        else
+        {
+            p=pop(&stk);
+            p=p->rchild;
+        }
+       
+        
+    }
+    
+}
+
+int main()
+{
+    Insert(10);
+    Insert(20);
+    Insert(30);
+    Insert(40);
+    Insert(50);
+    Ipreorder(root);
+
+    return 0;
+}

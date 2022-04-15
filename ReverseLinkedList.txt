@@ -1,0 +1,440 @@
+/******************************************************************************
+
+                              Online C++ Compiler.
+               Code, Compile, Run and Debug C++ program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <iostream>
+#include <stdio.h>
+#include <stdbool.h>
+
+using namespace std;
+
+struct Node
+{
+    int data;
+    struct Node *next;
+}*first=NULL;
+
+void create(int A[], int n)
+{
+     int i;
+     struct Node *t, *last;
+     first = (struct Node *)malloc(sizeof(struct Node));
+     first->data=A[0];
+     first->next=NULL;
+     last=first;
+ 
+     for(int i=1; i<n; i++)
+     {
+         t = new Node;
+         t->data=A[i];
+         t->next=NULL;
+         last->next=t;
+         last=t;    
+     }
+ 
+}
+
+void Display(struct Node *p)
+{
+    while(p)
+    {
+        cout<<p->data<<'\t';
+        p=p->next;
+        
+    }
+}
+
+
+void RecursiveDisplay(struct Node *p)
+{
+      if(p)
+      {
+          cout<<p->data;
+          Display(p->next);
+      }
+}
+
+int  CountNode(struct Node *p)
+{
+    int c=0;
+    while(p)
+    {
+      c++;
+      p=p->next;
+    }
+    return c;
+}
+
+int RecursiveNodeCount(struct Node *p)
+{
+    static int c=0;
+    if(p)  // contnuiation condition
+    {
+        c++;
+        RecursiveNodeCount(p->next);
+        
+    }
+    return c;
+}
+
+int RecursiveNodeCountdiff(struct Node *p)
+{
+    
+    if(p==0)  //termination condition
+    {
+        return 0;
+    }
+        else 
+        return RecursiveNodeCount(p->next) + 1;
+        
+}
+
+int SumElement(struct Node *p)
+{
+    int sum=0;
+    while(p)
+    {
+       sum = sum + p->data;
+       p = p->next;
+    }
+    
+    return sum;
+}
+
+int RecursiveSumElement(struct Node *p)
+{
+    static int sum = 0;
+    if(p) // contnuiation condition
+    {
+       sum = sum + p->data;
+       RecursiveSumElement(p->next);
+    }
+    return sum;
+}
+
+int RecursiveSumElementdiff(struct Node *p)
+{
+    
+    if(p ==0) // termination condition
+    {
+        return 0;
+    }
+       else 
+       {
+           return RecursiveSumElementdiff(p->next) + p->data;
+       }
+    
+}
+
+int MaxElement(struct Node *p)
+{
+    int max = INT32_MIN;
+    while(p)
+    {
+        if(max < p->data)
+        {
+            max = p->data;
+            p=p->next;
+        }
+    }
+    
+    return max;
+}
+
+int RecursiveMaxElement(struct Node *p)
+{
+   static int max = INT32_MIN;
+    if(p) //contnuiation condition
+    {
+        if(max < p->data)
+        {
+            max = p->data;
+           RecursiveMaxElement(p->next);
+        }
+    }
+    return max;
+}
+
+
+int RecursiveMaxElementdiff(struct Node *p)
+{
+    if(p==0)
+    {
+        return INT32_MIN;
+    }
+    
+    else 
+    {
+        int x = RecursiveMaxElementdiff(p->next);
+        if(x>p->data)
+        return x;
+        else
+        return p->data;
+    }
+}
+
+void LsearchLinkedlist(struct Node *p, int key)
+{
+    struct Node *q;
+    
+    while(p)
+    {
+        if(key == p->data )
+        {
+           cout<<p;
+        }
+        p=p->next;
+    }
+    
+    
+}
+
+
+void RecursiveLsearch(struct Node *p, int key)
+{
+    
+    if(p==NULL)
+    {
+        cout<<"not found";
+    }
+    if(key==p->data)
+    {
+        cout<<p;
+        
+    }
+    
+    else
+    RecursiveLsearch(p=p->next, key);
+}
+
+void InsertFirstpos(struct Node *p, int x)
+{
+    Node *t;
+    t = new Node;
+    t->data = x;
+    t->next =first;
+    first =t;
+}
+
+void InsertGivenpos(struct Node *p, int pos, int x)
+{
+    Node *t = new Node;
+    t->data = x;
+    p=first;
+    for(int i=0; i<pos-1; i++)
+    {
+        p=p->next;
+    }
+    t->next = p->next;
+    p->next =t;
+    
+    
+}
+void SortedInsert(struct Node *p, int x)
+{
+    Node *q;
+    p=first;
+    Node *t;
+    t= new Node;
+    t->data = x;
+    
+    
+   while(p && p->data<x) 
+   {
+       q=p;
+       p=p->next;
+   }
+   
+   t->next = q->next;
+   q->next = t;
+   
+}
+
+void DeleteFirstNode(struct Node *p)
+{
+    Node *t;
+    t=first;
+    first = first->next;
+    delete(t);
+}
+
+void DeletePosNode(Node *p, int pos)
+{
+    Node *q;
+    p= first;
+    
+    for(int i=0; i<pos-1; i++)
+    {
+       
+        q=p;
+        p=p->next;
+    }
+    
+    q->next = p->next;
+    int x = p->data;
+    delete(p);
+    
+    
+}
+
+int LinkedLsorted(Node *p)
+{
+    int x= INT32_MIN;
+    
+    while(p)
+    {
+     if(p->data<x)
+     {
+         return 0;
+     }
+     x=p->data;
+     p=p->next;
+     
+    }
+    
+    return 1;
+}
+
+
+void RemoveDuplicate(Node *p)
+{
+    Node *t;
+    t = p->next;
+    while(t)
+    {
+        if(p->data != t->data)
+        {
+            
+            p=t;
+        t=t->next;
+           
+        }
+        else 
+        {
+         p->next == t->next;
+            free(t);
+            t=p->next;
+        }
+    }
+}
+
+void ReverseLinkerLelement(Node *p)
+{
+    int i=0;
+    
+    Node *q;
+    q=p;
+    while(p)
+    {
+        i++;
+        p=p->next;
+    }
+    
+    //cout<<i;
+    
+    int A[i]= {0};
+    int k=0;
+    
+    p=q;
+    while(p)
+    {
+        A[k]=p->data;
+       // cout<<p->data;
+        p=p->next;
+        k++;
+        
+    }
+    
+    for(int j=0; j<i; j++)
+    {
+       //cout<<A[j]<<'\t';
+      
+    }
+    //cout<<i;
+    p=q;
+    for (int k=i-1; k>=0; k--)
+    {
+        //cout<<A[k];
+        p->data = A[k];
+       p=p->next;
+    }
+    
+    
+    
+    
+}
+
+
+void ReverseLinkedLbyLink(Node *p)
+{
+    Node *q, *r;
+    q=NULL;
+    r=NULL;
+    while(p)
+    {
+        r=q;
+        q=p;
+        p=p->next;
+        q->next = r;
+    }
+    
+    first=q;
+    
+}
+
+int main()
+{
+    int A[]={1,2,3,4,5};
+    create(A,5);
+//  Display(first);
+ // RecursiveDisplay(first);
+  //  int count = CountNode(first);
+  //  cout<<count;
+  //int count = RecursiveNodeCountdiff(first);
+  //cout<<count;
+ // int sum  = SumElement(first);
+ // cout<<sum;
+    //int sum  = RecursiveSumElement(first);
+    //cout<<sum;
+    //int sum  = RecursiveSumElementdiff(first);
+    //cout<<sum;
+     //int MaximumNo = MaxElement(first);
+    //cout<<MaximumNo;
+    //int MaxNo = RecursiveMaxElement(first);
+  //cout<<MaxNo;  
+ //nt Max = RecursiveMaxElementdiff(first);
+//cout<<Max;
+   //int keyf;
+   //LsearchLinkedlist(first, 4);
+   //RecursiveLsearch(first, 4);
+   //InsertFirstpos(first, 12);
+   //Display(first);
+   //InsertGivenpos(first, 3, 24);
+  //SortedInsert(first, 4);
+ // Display(first);
+   //DeleteFirstNode(first);
+  //Display(first);
+  // DeletePosNode(first,2);
+  // Display(first);
+  //int  c =  LinkedLsorted(first);
+ //cout<<c;
+ 
+ //RemoveDuplicate(first);
+ //Display(first);
+ 
+ 
+ //ReverseLinkerLelement(first);
+ //Display(first);
+ 
+ ReverseLinkedLbyLink(first);
+ Display(first);
+ 
+  
+  
+   
+    return 0;
+}

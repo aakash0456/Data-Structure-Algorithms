@@ -1,0 +1,83 @@
+/******************************************************************************
+
+                              Online C++ Compiler.
+               Code, Compile, Run and Debug C++ program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <iostream>
+
+using namespace std;
+
+struct Node
+{
+    struct Node *prev;
+    int data;
+    struct Node *next;
+}*first=NULL;
+
+void Create(int *A ,int n)
+{
+    int i;
+    struct Node *t, *last;
+    if(first==NULL)
+    {
+        first = new Node;
+        first->prev=NULL;
+        first->data=A[0];
+        first->next=NULL;
+        last=first;
+    }
+    for(i=1; i<n; i++)
+    {
+        t = new Node;
+        t->data=A[i];
+        t->next =NULL;
+        last->next=t;
+        t->prev=last;
+        last=t;
+    }
+    
+}
+
+void Insert(Node *p, int key , int index)
+{
+    int i;
+    struct Node *t;
+    for(i=0; i<index-1; i++)
+    {
+        p=p->next;
+    }
+    t = new Node;
+    t->data=key;
+    t->next=p->next;
+    p->next=t;
+    t->prev=p;
+    p->next->prev=t;
+    
+    
+}
+
+void Display(Node *p)
+{
+    while(p)
+    {
+        cout<<p->data<<'\t';
+        p=p->next;
+    }
+}
+
+
+int main()
+{
+    int A[]={1,2,3,4,5};
+    
+    Create(&A[0],5);
+    //Display(first);
+    Insert(first,7, 0);
+    Display(first);
+    
+
+    return 0;
+}

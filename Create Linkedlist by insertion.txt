@@ -1,0 +1,139 @@
+/******************************************************************************
+
+                              Online C++ Compiler.
+               Code, Compile, Run and Debug C++ program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <iostream>
+
+using namespace std;
+
+struct Node
+{
+    int data;
+    struct Node *next;
+}*first=NULL;
+
+void Create(int *A, int size)
+{
+    int i=1;
+    
+    Node *temp, *last;
+    
+    first = new Node;
+    first->data=A[0];
+    first->next=NULL;
+    
+   last=first;
+    
+    while(i<size)
+    {
+        temp = new Node;
+        temp->data=A[i];
+        temp->next=NULL;
+        last->next=temp;
+        last=temp;
+        i++;
+    }
+    
+}
+
+void Display(Node *first)
+{
+    struct Node *p;
+    p=first;
+    while(p)
+    {
+        cout<<p->data<<'\t';
+        p=p->next;
+    }
+}
+
+
+void CountNode(Node *p)
+{
+    int count=0;
+    while(p)
+    {
+        count++;
+        p=p->next;
+    }
+    
+    cout<<"Node count is :"<<count;
+}
+
+Node * Search(Node *p, int key)
+{
+    while(p)
+    {
+        if(key==p->data)
+        {
+            return p;
+        }
+        p=p->next;
+    }
+  return NULL;  
+}
+
+
+
+void Insert(Node *p,int data, int pos)
+{
+    Node *t;
+    for(int i=0; i<pos-1; i++)
+    {
+       p= p->next;
+    }
+    t =  new Node;
+    t->data=data;
+    t->next=p->next;
+    p->next=t;
+}
+
+void InsertCreateLinkedlist(int key)
+{
+    Node *last, *t;
+    if(first == NULL)
+    {
+        first = new Node;
+        first->data= key;
+        first->next=NULL;
+        last=first;
+    }
+    else
+    {
+       t=new Node; 
+       t->data=key;
+       t->next=NULL;
+       last->next=t;
+       last=t;
+    }
+    
+    
+}
+
+
+
+int main()
+{
+   // struct Node *first;
+    int A[]={1,2,3,4,5};
+    //Create( &A[0], 5);
+   // Display(first);
+  // CountNode(first);
+ // Node *p;
+ // p=Search(first,3);
+ // cout<<p->data;
+ //Insert(first, 7, 3);
+ //Display(first);
+ InsertCreateLinkedlist(2);
+ InsertCreateLinkedlist(3);
+ InsertCreateLinkedlist(3);
+ Display(first);
+ 
+ 
+
+    return 0;
+}

@@ -1,0 +1,184 @@
+/******************************************************************************
+
+                              Online C++ Compiler.
+               Code, Compile, Run and Debug C++ program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <iostream>
+
+using namespace std;
+
+struct Array
+{
+    int A[10];
+    int size;
+    int length;
+};
+
+void Append(Array *arr, int x)
+{
+    if(arr->length>=arr->size)
+    {
+        cout<<"Array is full";
+    }
+    else 
+    {
+        arr->A[arr->length++]=x;
+    }  
+}
+
+void Display(Array *arr)
+{
+    for(int i=0; i<arr->length; i++)
+    {
+        cout<<arr->A[i]<<'\t';
+    }
+}
+
+void Insert(Array *arr, int pos, int x)
+{  int i;
+    for(i=arr->length; i>pos; i--)
+    {
+        arr->A[i]=arr->A[i-1];
+    }
+    arr->A[pos]=x;
+    arr->length++;
+
+}
+
+int Delete(Array *arr, int index)
+{
+    int i;
+    int x=arr->A[index];
+    for(i=index; i<arr->length; i++)
+    {
+        arr->A[i]=arr->A[i+1];
+    }
+    arr->length--;
+    
+    return x;
+}
+
+int LSearch(Array arr, int key)
+{
+    int i;
+    for(i=0; i<arr.length; i++)
+    {
+        if(key==arr.A[i])
+        {
+            return i;
+        }
+        
+    }
+    
+    return -1;
+}
+
+int Bsearch(Array arr, int key)
+{
+    int l=arr.A[0];
+    int h= arr.A[arr.length-1];
+    int mid;
+    while(l<=h)
+    {
+        mid=(l+h)/2;
+        if(key==arr.A[mid])
+        {
+            return mid;
+        }
+        else if(key>arr.A[mid])
+          {
+              l=mid+1;
+          }
+        else h=mid-1;
+    }
+    
+    return -1;
+}
+
+int GetIndex(Array arr, int index)
+{
+    if(index>=0 && index<arr.length)
+    {
+     return arr.A[index];
+    }
+    else
+    return -1;
+}
+
+
+int MaxNo(Array arr)
+{
+    int max=INT32_MIN;
+    
+    for(int i=0; i<arr.length; i++)
+    {
+        if(arr.A[i]>max)
+        {
+            max=arr.A[i];
+        }
+    }
+    
+    return max;
+}
+
+
+void Bubblesort(Array *arr)
+{
+    int i,j, temp;
+    for(j=0; j<arr->length-1; j++)
+    {
+        int flag;
+        for(i=0; i<arr->length-1-j; i++)
+        {
+            flag=0;
+            if(arr->A[i]>arr->A[i+1])
+            {
+                temp = arr->A[i];
+                arr->A[i]=arr->A[i+1];
+                arr->A[i+1]=temp;
+                flag=1;
+            }
+           
+        }
+        if(flag==0)  //to make code adaptive.
+        {
+            break;   
+        }
+    }
+}
+
+
+int main()
+{
+    Array arr={{1,2,3,4,5}, 10 , 5};
+    Array arr1={{8,5,7,3,2}, 10 , 5};
+    
+   /* Display(&arr);
+    cout<<'\n';
+    Append(&arr,6);
+    Append(&arr,7);
+    Append(&arr,8);
+    Append(&arr,9);
+    Append(&arr,10);
+    //Append(&arr,11);*/
+    
+    //Insert(&arr,6,6);
+   // Insert(&arr,7,7);
+   //Insert(&arr,4,5);
+  // Display(&arr);
+   // cout<<'\n';
+    //cout<<Delete(&arr, 2)<<'\n';
+   // Display(&arr);
+    //cout<<"Index is : "<<LSearch(arr, 6);
+    //cout<<"value is  : "<<GetIndex(arr, 4);
+    //cout<<"Max no :"<<MaxNo(arr);
+    //cout<<" index for key is :"<<Bsearch(arr, 4);
+    Bubblesort(&arr1);
+     Display(&arr1);
+    
+    
+    return 0;
+}

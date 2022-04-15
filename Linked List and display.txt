@@ -1,0 +1,57 @@
+/******************************************************************************
+
+                              Online C++ Compiler.
+               Code, Compile, Run and Debug C++ program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <iostream>
+
+using namespace std;
+
+struct Node
+{
+    int data;
+    struct Node *next;
+}*first=NULL; 
+
+void create(int A[], int n)
+{
+     int i;
+     struct Node *t, *last;
+     first = (struct Node *)malloc(sizeof(struct Node));
+     first->data=A[0];
+     first->next=NULL;
+     last=first;
+ 
+     for(int i=1; i<n; i++)
+     {
+         t = new Node;
+         t->data=A[i];
+         t->next=NULL;
+         last->next=t;
+         last=t;    
+     }
+ 
+}
+
+void Display(struct Node *p)
+{
+    while(p)
+    {
+        cout<<p->data<<'\t';
+        p=p->next;
+        
+    }
+}
+
+
+int main()
+{
+    int A[]={1,2,3,4,5};
+    create(A,5);
+    Display(first);
+
+    return 0;
+}

@@ -1,0 +1,124 @@
+/******************************************************************************
+
+                              Online C++ Compiler.
+               Code, Compile, Run and Debug C++ program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <iostream>
+
+using namespace std;
+
+struct Array
+{
+    int A[10];
+    int s;
+    int length;
+};
+
+void Append(struct Array *arr, int n)
+{
+    if(arr->length<arr->s)
+    {
+        arr->A[arr->length++] = n;
+    }
+}
+
+
+void Insert(Array *arr, int index, int x)
+{
+    if(index>=0 && index<=arr->length)
+    {
+        for(int i = arr->length;  i>index; i--)
+        {
+            arr->A[i] = arr->A[i-1];
+            
+        }
+        
+        arr->A[index] = x;
+        arr->length++;
+    }
+}
+
+void Display(Array arr)
+{
+    
+    for(int i=0; i<arr.length; i++)
+    {
+        cout<<arr.A[i]<<'\t';
+    }
+    
+}
+
+void Delete(Array *arr, int index)
+{
+    for(int i=index; i<arr->length-1; i++)
+    {
+        arr->A[i]=arr->A[i+1];
+        
+    }
+    arr->length--;
+}
+
+void Lsearch(Array arr, int key)
+{
+    for(int i=0; i<arr.length; i++)
+    {
+        if(arr.A[i]==key)
+        {
+            cout<<"Key found at index : "<<i;
+        }
+        
+    }
+}
+
+int Bsearch(Array *arr, int key)
+{
+    int l=arr->A[0];
+    
+    int h=arr->length;
+    while(l<=h)
+    {
+       int  mid = (l+h)/2;
+        if(key == arr->A[mid])
+        return mid;
+        
+        else if(key<arr->A[mid])
+        {
+            h=mid-1;
+        }
+        
+        else l= mid+1;
+    }
+    
+    return -1;
+}
+void Get(Array arr,int index)
+{
+    
+    for(int i=0; i<arr.length; i++)
+    {
+        if(i==index)
+        cout<<"Number is : "<<arr.A[index];
+    }
+}
+
+int main()
+{
+   Array arr = {{1,2,3,4,5},10,5};
+   //Append(&arr, 5);
+   //Insert(&arr, 2 , 0 );
+   //Display(arr);
+   //Delete(&arr, 2);
+   //cout<<'\n';
+   //Display(arr);
+  // cout<<'\n';
+  // Lsearch(arr,3);
+  // cout<<'\n';
+ 
+ //cout<<"Index is : "<<Bsearch(&arr, 4);
+  // Display(arr);
+  Get(arr,2);
+    return 0;
+}

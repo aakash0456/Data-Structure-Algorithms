@@ -1,0 +1,108 @@
+/******************************************************************************
+
+                              Online C++ Compiler.
+               Code, Compile, Run and Debug C++ program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <iostream>
+
+using namespace std;
+
+struct Node
+{
+    int data;
+    struct Node *next;
+}*first=NULL;
+
+void create(int A[], int n)
+{
+     int i;
+     struct Node *t, *last;
+     first = (struct Node *)malloc(sizeof(struct Node));
+     first->data=A[0];
+     first->next=NULL;
+     last=first;
+ 
+     for(int i=1; i<n; i++)
+     {
+         t = new Node;
+         t->data=A[i];
+         t->next=NULL;
+         last->next=t;
+         last=t;    
+     }
+ 
+}
+
+void Display(struct Node *p)
+{
+    while(p)
+    {
+        cout<<p->data<<'\t';
+        p=p->next;
+        
+    }
+}
+
+
+void RecursiveDisplay(struct Node *p)
+{
+      if(p)
+      {
+          cout<<p->data;
+          Display(p->next);
+      }
+}
+
+int  CountNode(struct Node *p)
+{
+    int c=0;
+    while(p)
+    {
+      c++;
+      p=p->next;
+    }
+    return c;
+}
+
+int RecursiveNodeCount(struct Node *p)
+{
+    static int c=0;
+    if(p)  // contnuiation condition
+    {
+        c++;
+        RecursiveNodeCount(p->next);
+        
+    }
+    return c;
+}
+
+int RecursiveNodeCountdiff(struct Node *p)
+{
+    
+    if(p==0)  //termination condition
+    {
+        return 0;
+    }
+        else 
+        return RecursiveNodeCount(p->next) + 1;
+        
+}
+
+int main()
+{
+    int A[]={1,2,3,4,5};
+    create(A,5);
+//  Display(first);
+ // RecursiveDisplay(first);
+  //  int count = CountNode(first);
+  //  cout<<count;
+  int count = RecursiveNodeCountdiff(first);
+  cout<<count;
+    
+
+
+    return 0;
+}
