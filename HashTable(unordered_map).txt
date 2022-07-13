@@ -1,0 +1,52 @@
+ /******************************************************************************
+
+                              Online C++ Compiler.
+               Code, Compile, Run and Debug C++ program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <iostream>
+#include <unordered_map>
+
+using namespace std;
+
+int main()
+{
+    unordered_map<string, int> menu;
+    
+    menu["pizza"] = 100;
+    menu["pepsi"] = 50;
+    
+    string item;
+    cout<<"Enter the item";
+    cin>>item;
+    
+    if(menu.count(item)==0)
+    {
+        cout<<"Item not found";
+    }
+    else
+    {
+        cout<<"item is found"<<" "<<"cost is "<<menu[item]; 
+    }
+    
+    
+    //update price of pizza
+    
+    menu["pizza"] = (1 +0.1)*menu["pizza"];
+    
+    
+    //delete the  pizza
+   // menu.erase("pizza");
+    
+   //iterate hashtable using for each loop
+   
+   for(pair<string, int> item: menu)
+   {
+       cout<<item.first<<" "<<item.second;
+   }
+    return 0;
+}
+
+
